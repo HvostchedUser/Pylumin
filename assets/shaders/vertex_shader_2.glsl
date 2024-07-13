@@ -12,8 +12,8 @@ uniform float time;
 void main()
 {
     vec3 position = aPos;
-    position.x += sin(time*10 + aPos.y * 10.0) * 0.5;
-    position.y += cos(time*10 + aPos.x * 10.0) * 0.5;
+    position.x += sin(time*10 + aPos.y * 1.0) * 0.2;
+    position.y += cos(time*10 + aPos.x * 1.0) * 0.2;
 
     gl_Position = projection * view * model * vec4(position, 1.0);
     ourColor = aColor;
