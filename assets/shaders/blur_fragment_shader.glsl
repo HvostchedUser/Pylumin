@@ -6,17 +6,23 @@ in vec2 TexCoords;
 uniform sampler2D screenTexture;
 
 const float offset = 1.0 / 300.0; // Adjust according to texture resolution
+const float alpha_threshold = 0.1; // Threshold to discard low alpha values
 
 void main()
 {
-    vec3 result = vec3(0.0);
-    for (int x = -2; x <= 2; ++x)
+    vec4 color = vec4(0.0);
+    for (int x = -5; x <= 5; ++x)
     {
-        for (int y = -2; y <= 2; ++y)
+        for (int y = -5; y <= 5; ++y)
         {
             vec2 offsetCoords = vec2(TexCoords.x + x * offset, TexCoords.y + y * offset);
-            result += texture(screenTexture, offsetCoords).rgb;
+            color += texture(screenTexture, offsetCoords);
         }
     }
-    FragColor = vec4(result / 25.0, 1.0); // 25 is the kernel size (5x5)
+    color /= 121.0; // Normalize color
+    if (color.a < alpha_threshold)
+    {
+        discard; // Discard low alpha pixels
+    }
+    FragColor = color;
 }

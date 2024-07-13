@@ -1,10 +1,10 @@
+
 from typing import List, Optional, Dict, Any
 import glm
 from engine.shader import Shader
 
 class Thing:
-    def __init__(self, name: str, parent: Optional['Thing'] = None, shader: Optional[Shader] = None) -> None:
-        self.name = name
+    def __init__(self, parent: Optional['Thing'] = None, shader: Optional[Shader] = None) -> None:
         self.parent = parent
         self.children: List['Thing'] = []
         self.position = glm.vec3(0.0, 0.0, 0.0)
@@ -44,9 +44,6 @@ class Thing:
     def set_uniform(self, name: str, value: Any) -> None:
         self.uniforms[name] = value
 
-    def update(self, delta_time: float) -> None:
-        for child in self.children:
-            child.update(delta_time)
 
     def render(self, view_matrix: glm.mat4, projection_matrix: glm.mat4) -> None:
         if self.shader:
@@ -60,5 +57,5 @@ class Thing:
                 self.shader.set_uniform(name, value)
 
 
-        for child in self.children:
-            child.render(view_matrix, projection_matrix)
+        # for child in self.children:
+        #     child.render(view_matrix, projection_matrix)

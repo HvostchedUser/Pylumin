@@ -7,8 +7,8 @@ from engine.shader import Shader
 import glm
 
 class Cube(Thing):
-    def __init__(self, name: str, parent: Optional[Thing] = None, shader: Optional[Shader] = None) -> None:
-        super().__init__(name, parent, shader)
+    def __init__(self, parent: Optional[Thing] = None, shader: Optional[Shader] = None) -> None:
+        super().__init__(parent, shader)
         self.vertices = np.array([
             # positions         # colors
             -0.5, -0.5, -0.5,   1.0, 0.0, 0.0,
